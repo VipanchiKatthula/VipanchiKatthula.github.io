@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vipanchi Reddy</title>
-    <link>https://vipanchireddy.github.io/</link>
-      <atom:link href="https://vipanchireddy.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://vipanchikatthula.github.io/</link>
+      <atom:link href="https://vipanchikatthula.github.io/index.xml" rel="self" type="application/rss+xml" />
     <description>Vipanchi Reddy</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 08 Mar 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
       <title>Vipanchi Reddy</title>
-      <link>https://vipanchireddy.github.io/</link>
+      <link>https://vipanchikatthula.github.io/</link>
     </image>
     
     <item>
       <title>Document Similarity using POS Tags</title>
-      <link>https://vipanchireddy.github.io/project/document-similarity-with-postags/</link>
+      <link>https://vipanchikatthula.github.io/project/document-similarity-with-postags/</link>
       <pubDate>Sun, 08 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>https://vipanchireddy.github.io/project/document-similarity-with-postags/</guid>
+      <guid>https://vipanchikatthula.github.io/project/document-similarity-with-postags/</guid>
       <description>&lt;p&gt;Finding Similarity between documents using Jaccard Similarity and including POS Tags of the words in the model to better find the synchronous relationship between documents.&lt;/p&gt;
 &lt;p&gt;Add anything you want here&lt;/p&gt;
 </description>
@@ -24,9 +24,9 @@
     
     <item>
       <title>400K Tweet analysis on PySpark</title>
-      <link>https://vipanchireddy.github.io/project/pyspark-operations-on-amazons-tweets/</link>
+      <link>https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/</link>
       <pubDate>Sun, 23 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://vipanchireddy.github.io/project/pyspark-operations-on-amazons-tweets/</guid>
+      <guid>https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/</guid>
       <description>&lt;h1 id=&#34;pyspark-operations-on-amazon-tweets&#34;&gt;PySpark Operations On Amazon Tweets&lt;/h1&gt;
 &lt;p&gt;This repository shows the implementation of Spark context, Spark SQL context on Amazon Tweets data set with 400k Tweets. I dealt with tweet_id (id_str), Tweet_created_time, Retweet_count, Favourite_count to find the days with high influx of tweets.&lt;br&gt;
 Analyzed the tweets on the busiest day to find the words that were repeated the most in the selected tweets.&lt;/p&gt;
@@ -67,17 +67,17 @@ counts_ordered = sqlcontext.sql(&amp;ldquo;SELECT * FROM tmpcounts order by coun
     
     <item>
       <title>Sentiment Analysis on Tweets</title>
-      <link>https://vipanchireddy.github.io/project/twitter-sentiment-analysis/</link>
+      <link>https://vipanchikatthula.github.io/project/twitter-sentiment-analysis/</link>
       <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://vipanchireddy.github.io/project/twitter-sentiment-analysis/</guid>
+      <guid>https://vipanchikatthula.github.io/project/twitter-sentiment-analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Jaccard Cosine Similarity</title>
-      <link>https://vipanchireddy.github.io/project/jaccard-cosine-similarity/</link>
+      <link>https://vipanchikatthula.github.io/project/jaccard-cosine-similarity/</link>
       <pubDate>Sun, 02 Feb 2020 00:00:00 +0000</pubDate>
-      <guid>https://vipanchireddy.github.io/project/jaccard-cosine-similarity/</guid>
+      <guid>https://vipanchikatthula.github.io/project/jaccard-cosine-similarity/</guid>
       <description>&lt;h1 id=&#34;text-analytics---jaccard-and-cosine-similarity&#34;&gt;Text Analytics - Jaccard and Cosine Similarity&lt;/h1&gt;
 &lt;p&gt;Repository to showcase projects related to text analytics and Natural Language Processing (NLP)&lt;/p&gt;
 &lt;p&gt;Jaccard Similarity:
@@ -103,9 +103,9 @@ Cosine similarity measures the similarity between two vectors of an inner produc
     
     <item>
       <title>Writing technical content in Academic</title>
-      <link>https://vipanchireddy.github.io/post/technical-post/</link>
+      <link>https://vipanchikatthula.github.io/post/technical-post/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://vipanchireddy.github.io/post/technical-post/</guid>
+      <guid>https://vipanchikatthula.github.io/post/technical-post/</guid>
       <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
