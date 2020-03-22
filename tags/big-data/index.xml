@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Big Data | Vipanchi Reddy</title>
+    <link>https://vipanchireddy.github.io/tags/big-data/</link>
+      <atom:link href="https://vipanchireddy.github.io/tags/big-data/index.xml" rel="self" type="application/rss+xml" />
+    <description>Big Data</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sun, 23 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>Big Data</title>
+      <link>https://vipanchireddy.github.io/tags/big-data/</link>
+    </image>
+    
+    <item>
+      <title>400K Tweet analysis on PySpark</title>
+      <link>https://vipanchireddy.github.io/project/pyspark-operations-on-amazons-tweets/</link>
+      <pubDate>Sun, 23 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://vipanchireddy.github.io/project/pyspark-operations-on-amazons-tweets/</guid>
+      <description>&lt;h1 id=&#34;pyspark-operations-on-amazon-tweets&#34;&gt;PySpark Operations On Amazon Tweets&lt;/h1&gt;
+&lt;p&gt;This repository shows the implementation of Spark context, Spark SQL context on Amazon Tweets data set with 400k Tweets. I dealt with tweet_id (id_str), Tweet_created_time, Retweet_count, Favourite_count to find the days with high influx of tweets.&lt;br&gt;
+Analyzed the tweets on the busiest day to find the words that were repeated the most in the selected tweets.&lt;/p&gt;
+&lt;p&gt;Summary of operations:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Import csv file:&lt;/strong&gt;&lt;br&gt;
+data = spark.read.format(&amp;ldquo;csv&amp;rdquo;).option(&amp;ldquo;header&amp;rdquo;,&amp;ldquo;true&amp;rdquo;).load(&amp;ldquo;filepath/filename.csv&amp;rdquo;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Selecting the required columns from a data frame:&lt;/strong&gt;&lt;br&gt;
+data.select(&amp;ldquo;column_name1&amp;rdquo;,&amp;lsquo;colname2&amp;rsquo;,&amp;lsquo;colname3&amp;rsquo;,&amp;lsquo;colname4&amp;rsquo;)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3. Printing data types of columns:&lt;/strong&gt;&lt;br&gt;
+types = [f.dataType for f in data1.schema.fields]&lt;br&gt;
+types&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4. Printing distinct values of a column:&lt;/strong&gt;&lt;br&gt;
+data.select(&amp;ldquo;column_name&amp;rdquo;).distinct().show()&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;5. Parsing a column to create additional columns:&lt;/strong&gt;&lt;br&gt;
+from pyspark.sql.functions import split&lt;br&gt;
+tweet_created_at is in the format: &amp;ldquo;Tue Nov 01 02:39:55 +0000 2016&amp;rdquo;&lt;br&gt;
+a = split(dat_filtered[&amp;ldquo;tweet_created_at&amp;rdquo;], &#39; &amp;lsquo;)&lt;br&gt;
+dat_filtered = dat_filtered.withColumn(&amp;lsquo;Month&amp;rsquo;, a.getItem(1))&lt;br&gt;
+dat_filtered = dat_filtered1.withColumn(&amp;lsquo;Date&amp;rsquo;, a.getItem(2))&lt;br&gt;
+dat_filtered = dat_filtered1.withColumn(&amp;lsquo;Year&amp;rsquo;, a.getItem(5))&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6. Concatenating multiple columns to form a new one&lt;/strong&gt;&lt;br&gt;
+dat_filtered.select(concat(col(&amp;ldquo;Month&amp;rdquo;), lit(&amp;rdquo; &amp;ldquo;), col(&amp;ldquo;Date&amp;rdquo;),lit(&amp;rdquo; &amp;ldquo;), col(&amp;ldquo;Year&amp;rdquo;)).alias(&amp;ldquo;Date&amp;rdquo;))&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;7. Importing SQL funtions col,lit&lt;/strong&gt;&lt;br&gt;
+import pyspark.sql.functions as sq 
+dat_filtered.withColumn(&amp;ldquo;tweet_created_at&amp;rdquo;,sq.concat(col(&amp;ldquo;Month&amp;rdquo;), sq.lit(&amp;rdquo; &amp;ldquo;), sq.col(&amp;ldquo;Date&amp;rdquo;),sq.lit(&amp;rdquo; &amp;ldquo;), sq.col(&amp;ldquo;Year&amp;rdquo;)))&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;8. Aggregations on dataframe&lt;/strong&gt;&lt;br&gt;
+df.groupby(df.date).agg(sq.count(&amp;lsquo;id_str&amp;rsquo;).alias(&amp;ldquo;count_of_tweets&amp;rdquo;))&lt;br&gt;
+Above command counts the number of tweets grouped by the date&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;9. Initializing spark context and sql context to perform SQL queries&lt;/strong&gt;&lt;br&gt;
+conf = pyspark.SparkConf()&lt;br&gt;
+sc = pyspark.SparkContext.getOrCreate(conf=conf)&lt;br&gt;
+from pyspark.sql import SQLContext&lt;br&gt;
+sqlcontext = SQLContext(sc)&lt;br&gt;
+counts.registerTempTable(&amp;ldquo;tmpcounts&amp;rdquo;)&lt;br&gt;
+counts_ordered = sqlcontext.sql(&amp;ldquo;SELECT * FROM tmpcounts order by count_of_tweets desc limit 5&amp;rdquo;)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
