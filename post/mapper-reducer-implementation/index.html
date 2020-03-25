@@ -28,10 +28,10 @@
   
     
   
-  <meta name="description" content="Finding the word frequencies and basic data analysis using PySpark.">
+  <meta name="description" content="I created a Mapper-Reducer implementation using basic features of Python to mimic Hadoop&rsquo;s mapper-reducer functionality. I used Multi-threading (explained later) to run parallel operations. I used Google Colab to run the model and you can find the required [&ldquo;Pride_and_Prejudice.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/">
+  <link rel="alternate" hreflang="en-us" href="https://vipanchikatthula.github.io/post/mapper-reducer-implementation/">
 
   
 
@@ -43,6 +43,9 @@
   
 
   
+  
+  
+  <script src="/js/mathjax-config.js"></script>
   
 
   
@@ -172,9 +175,9 @@
 
       
       
-        
-      
 
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
       
     
       
@@ -213,7 +216,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu63b51a9d119f586c366d015cefbb7d8c_46688_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu63b51a9d119f586c366d015cefbb7d8c_46688_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/">
+  <link rel="canonical" href="https://vipanchikatthula.github.io/post/mapper-reducer-implementation/">
 
   
   
@@ -226,15 +229,15 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Vipanchi Reddy">
-  <meta property="og:url" content="https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/">
-  <meta property="og:title" content="400K Tweet analysis on PySpark | Vipanchi Reddy">
-  <meta property="og:description" content="Finding the word frequencies and basic data analysis using PySpark."><meta property="og:image" content="https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/featured.jpg">
-  <meta property="twitter:image" content="https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/featured.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:url" content="https://vipanchikatthula.github.io/post/mapper-reducer-implementation/">
+  <meta property="og:title" content="Map Reduce 101 - Python Implementation (Multi Threading) | Vipanchi Reddy">
+  <meta property="og:description" content="I created a Mapper-Reducer implementation using basic features of Python to mimic Hadoop&rsquo;s mapper-reducer functionality. I used Multi-threading (explained later) to run parallel operations. I used Google Colab to run the model and you can find the required [&ldquo;Pride_and_Prejudice."><meta property="og:image" content="https://vipanchikatthula.github.io/post/mapper-reducer-implementation/featured.jpg">
+  <meta property="twitter:image" content="https://vipanchikatthula.github.io/post/mapper-reducer-implementation/featured.jpg"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2020-02-23T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2020-02-11T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2020-02-23T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2020-02-11T00:00:00&#43;00:00">
   
 
   
@@ -246,6 +249,8 @@
 
 
 
+
+  
 
 
 
@@ -253,19 +258,19 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/"
+    "@id": "https://vipanchikatthula.github.io/post/mapper-reducer-implementation/"
   },
-  "headline": "400K Tweet analysis on PySpark",
+  "headline": "Map Reduce 101 - Python Implementation (Multi Threading)",
   
   "image": [
-    "https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/featured.jpg"
+    "https://vipanchikatthula.github.io/post/mapper-reducer-implementation/featured.jpg"
   ],
   
-  "datePublished": "2020-02-23T00:00:00Z",
-  "dateModified": "2020-02-23T00:00:00Z",
+  "datePublished": "2020-02-11T00:00:00Z",
+  "dateModified": "2020-02-11T00:00:00Z",
   
   "author": {
     "@type": "Person",
@@ -280,7 +285,7 @@
       "url": "https://vipanchikatthula.github.io/images/icon_hu63b51a9d119f586c366d015cefbb7d8c_46688_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "Finding the word frequencies and basic data analysis using PySpark."
+  "description": "I created a Mapper-Reducer implementation using basic features of Python to mimic Hadoop\u0026rsquo;s mapper-reducer functionality. I used Multi-threading (explained later) to run parallel operations. I used Google Colab to run the model and you can find the required [\u0026ldquo;Pride_and_Prejudice."
 }
 </script>
 
@@ -298,7 +303,7 @@
 
 
 
-  <title>400K Tweet analysis on PySpark | Vipanchi Reddy</title>
+  <title>Map Reduce 101 - Python Implementation (Multi Threading) | Vipanchi Reddy</title>
 
 </head>
 
@@ -557,7 +562,7 @@
 </nav>
 
 
-  <article class="article article-project">
+  <article class="article">
 
   
 
@@ -581,13 +586,11 @@
 
 
   
-  
-    
   
 
 
 <div class="article-container pt-3">
-  <h1>400K Tweet analysis on PySpark</h1>
+  <h1>Map Reduce 101 - Python Implementation (Multi Threading)</h1>
 
   
 
@@ -605,13 +608,18 @@
     
       
     
-    Feb 23, 2020
+    Feb 11, 2020
   </span>
   
 
   
 
   
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
 
   
   
@@ -636,65 +644,14 @@
 
 
 
-<div class="btn-links mb-3">
-  
-  <a class="btn btn-outline-primary my-1" href="https://github.com/VipanchiKatthula/PySpark_OperationsOnAmazonTweets" target="_blank" rel="noopener">Go to Project Site</a>
-  
-  
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-    
-  
-  
-  
-  
-  
-    
-  
-  <a class="btn btn-outline-primary my-1 mr-1" href="https://twitter.com/iamvippi" target="_blank" rel="noopener">
-    <i class="fab fa-twitter mr-1"></i>
-    Follow
-  </a>
-
 
 </div>
 
 
-</div>
-
-
-<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 540px;">
+<div class="article-header container-fluid featured-image-wrapper mt-4 mb-4" style="max-width: 923px; max-height: 486px;">
   <div style="position: relative">
-    <img src="/project/pyspark-operations-on-amazons-tweets/featured_hu3d92c12d44f8345aae32df0444fb2370_36656_720x0_resize_q90_lanczos.jpg" alt="" class="featured-image">
-    
+    <img src="/post/mapper-reducer-implementation/featured.jpg" alt="" class="featured-image">
+    <span class="article-header-caption">Image credit: <a href="https://www.talend.com/resources/what-is-mapreduce/"><strong>Talend</strong></a></span>
   </div>
 </div>
 
@@ -703,41 +660,108 @@
   <div class="article-container">
 
     <div class="article-style">
-      <h1 id="pyspark-operations-on-amazon-tweets">PySpark Operations On Amazon Tweets</h1>
-<p>This repository shows the implementation of Spark context, Spark SQL context on Amazon Tweets data set with 400k Tweets. I dealt with tweet_id (id_str), Tweet_created_time, Retweet_count, Favourite_count to find the days with high influx of tweets.<br>
-Analyzed the tweets on the busiest day to find the words that were repeated the most in the selected tweets.</p>
-<p>Summary of operations:</p>
-<p><strong>1. Import csv file:</strong><br>
-data = spark.read.format(&ldquo;csv&rdquo;).option(&ldquo;header&rdquo;,&ldquo;true&rdquo;).load(&ldquo;filepath/filename.csv&rdquo;)</p>
-<p><strong>2. Selecting the required columns from a data frame:</strong><br>
-data.select(&ldquo;column_name1&rdquo;,&lsquo;colname2&rsquo;,&lsquo;colname3&rsquo;,&lsquo;colname4&rsquo;)</p>
-<p><strong>3. Printing data types of columns:</strong><br>
-types = [f.dataType for f in data1.schema.fields]<br>
-types</p>
-<p><strong>4. Printing distinct values of a column:</strong><br>
-data.select(&ldquo;column_name&rdquo;).distinct().show()</p>
-<p><strong>5. Parsing a column to create additional columns:</strong><br>
-from pyspark.sql.functions import split<br>
-tweet_created_at is in the format: &ldquo;Tue Nov 01 02:39:55 +0000 2016&rdquo;<br>
-a = split(dat_filtered[&ldquo;tweet_created_at&rdquo;], ' &lsquo;)<br>
-dat_filtered = dat_filtered.withColumn(&lsquo;Month&rsquo;, a.getItem(1))<br>
-dat_filtered = dat_filtered1.withColumn(&lsquo;Date&rsquo;, a.getItem(2))<br>
-dat_filtered = dat_filtered1.withColumn(&lsquo;Year&rsquo;, a.getItem(5))</p>
-<p><strong>6. Concatenating multiple columns to form a new one</strong><br>
-dat_filtered.select(concat(col(&ldquo;Month&rdquo;), lit(&rdquo; &ldquo;), col(&ldquo;Date&rdquo;),lit(&rdquo; &ldquo;), col(&ldquo;Year&rdquo;)).alias(&ldquo;Date&rdquo;))</p>
-<p><strong>7. Importing SQL funtions col,lit</strong><br>
-import pyspark.sql.functions as sq 
-dat_filtered.withColumn(&ldquo;tweet_created_at&rdquo;,sq.concat(col(&ldquo;Month&rdquo;), sq.lit(&rdquo; &ldquo;), sq.col(&ldquo;Date&rdquo;),sq.lit(&rdquo; &ldquo;), sq.col(&ldquo;Year&rdquo;)))</p>
-<p><strong>8. Aggregations on dataframe</strong><br>
-df.groupby(df.date).agg(sq.count(&lsquo;id_str&rsquo;).alias(&ldquo;count_of_tweets&rdquo;))<br>
-Above command counts the number of tweets grouped by the date</p>
-<p><strong>9. Initializing spark context and sql context to perform SQL queries</strong><br>
-conf = pyspark.SparkConf()<br>
-sc = pyspark.SparkContext.getOrCreate(conf=conf)<br>
-from pyspark.sql import SQLContext<br>
-sqlcontext = SQLContext(sc)<br>
-counts.registerTempTable(&ldquo;tmpcounts&rdquo;)<br>
-counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of_tweets desc limit 5&rdquo;)</p>
+      <p>I  created a <code>Mapper-Reducer implementation</code> using basic features of Python to mimic Hadoop&rsquo;s mapper-reducer functionality. I used <code>Multi-threading</code> (explained later) to run parallel operations. I used Google Colab to run the model and you can find the required [&ldquo;Pride_and_Prejudice.txt&rdquo;] file 
+<a href="https://github.com/VipanchiKatthula/Mapper_Reducer_Implementation" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="goal">Goal</h2>
+<p>First, let&rsquo;s map the words in the provided text to 1 using the mapper as <code>&lt;Word,1&gt;</code> and then use reducer to find the word count in the format <code>&lt;Word,Count&gt;</code>. A reducer also sorts the words which needs to be separately added to the series of operations. I implement the multi threading in python to parallelly get the word counts from two lists of words.</p>
+<h3 id="input-file">Input File</h3>
+<pre><code class="language-python">inputfile = open('/content/drive/My Drive/IDS561BigData/Assignment1/Pride_and_Prejudice.txt',&quot;r&quot;)
+text = inputfile.read()
+</code></pre>
+<h3 id="data-cleaning">Data cleaning</h3>
+<p>In order for us to use the text from the book, we have to remove the the punctuations, unnecessary  numbers as they won&rsquo;t help us understand the text in most cases.</p>
+<p>We remove the numbers, convert the text to lower case using <code>.lower()</code> command and use Regular Expressions to replace punctuations with a space <code>' '</code>. I then remove those Lines with no text in them.</p>
+<pre><code>def data_clean(text):
+  NoNumbers = ''.join([i for i in text if not i.isdigit()]) #Removing numbers
+  NoNumbers = text.lower()                                  #Making the text to lower case
+  import re
+  onlyText = re.sub(r&quot;[^a-z\s]+&quot;,' ',NoNumbers)             #Removing punctuation
+  finaltext = &quot;&quot;.join([s for s in onlyText.strip().splitlines(True) if s.strip()]) #Removing the null lines
+  return finaltext
+</code></pre>
+<h3 id="splitting-data-into-two-parts">Splitting data into two parts</h3>
+<p>Let&rsquo;s define a reusable function which takes a list of words as input to do multi-threading on the given data set. Here &ldquo;a&rdquo; is the number of words after you wish to make the split. For example, <code>splitlines(text,200)</code> will split the text into split1 and split2 as two sentences with first 1 to 199 words in split1 and rest in split2.</p>
+<pre><code>def splitlines(text,a):
+  linessplit = text.splitlines() #Splitting the lines into a list
+  split1 = linessplit[0:a]       #Creating the first split with the first &quot;a&quot; number of lines into split 1
+  split2 = linessplit[a:]        #Creating the second split with the first &quot;a&quot; number of lines into split 2
+  return split1,split2
+</code></pre>
+<h3 id="mapper">Mapper</h3>
+<p>We map all the words in &ldquo;text&rdquo; to 1 using the <code>keyval.append([j,1])</code> command. So, the key here is the word and we apped a value of 1. The output format of the data is <code>&lt;word,1&gt;</code>.</p>
+<pre><code>def mapper(text,out_queue):
+  keyval = []
+  for i in text:
+    wordssplit = i.split()
+    for j in wordssplit:
+      keyval.append([j,1])      #Appending each word in the line with 1 and storing it in [&quot;word&quot;,1] format in a nested list
+  out_queue.put(keyval)
+</code></pre>
+<h3 id="sorting-function">Sorting Function</h3>
+<p>As we have two lists of separate key-value pairs after the split function, now we define sortging function to handle both the lists. We  take two inputs and return only one output which which contains the sorted list of word key value pairs.</p>
+<pre><code>def sortedlists(list1,list2):
+  out = list1 + list2             #Appending the two input lists into a single list
+  out.sort(key= lambda x :x[0])   #Sorting the lists based on the first element of the list which is the &quot;word&quot;
+  return out
+</code></pre>
+<h3 id="partition">Partition</h3>
+<p>The below code creates two lists of sorted words in alphabetical order and then we separate the words starting with a-m and n-z. The function returns the sorted lists which will be inputs to the reducer function.</p>
+<pre><code>def partition(sorted_list) :
+ sort1out = []
+ sort2out = []
+ for i in sorted_list:
+    if i[0][0] &lt; 'n':             #Partitioning the sorted word list into two separate lists 
+      sort1out.append(i)          #with first list containing words starting with a-m and n-z into second
+    else : sort2out.append(i)
+ return sort1out,sort2out
+</code></pre>
+<h3 id="reducer">Reducer</h3>
+<pre><code>def reducer(part_out1,out_queue) :
+  sum_reduced = []
+  count = 1
+  for i in range(0,len(part_out1)):
+    if i &lt; len(part_out1)-1:
+      if part_out1[i] == part_out1[i+1]:
+       count = count+1                              #Counting the number of words
+      else : 
+       sum_reduced.append([part_out1[i][0],count])  #Appending the word along with count to sum_reduced list as [&quot;word&quot;,count]
+       count = 1 
+    else: sum_reduced.append(part_out1[i])          #Appending the last word to the output list    
+  out_queue.put(sum_reduced)
+</code></pre>
+<h3 id="multi---threading-function">Multi - Threading function</h3>
+<p>The user defined function below takes a function and two inputs as arguments. The function is applied on both the inputs simultaneously and the output is returned by the function.</p>
+<pre><code>import threading
+import queue
+def multi_thread_function(func,map1_input,map2_input):  #func is the function to be used with two threads taking two inputs map1_input and map2_input
+  my_queue1 = queue.Queue()  #Using queue to store the values of mapper output to use them in sort function
+  my_queue2 = queue.Queue()
+  t1 = threading.Thread(target=func, args=(map1_input,my_queue1)) 
+  t2 = threading.Thread(target=func, args=(map2_input,my_queue2))  
+  t1.start()                 #Starting the execution of thread1
+  t2.start()                 #Starting the execution of thread2 to run simultaneously with thread1
+  t1.join()                  #Waiting for the thread1 to be completely executed
+  t2.join()                  #Waiting for the thread2 to be completely executed
+  list1out = my_queue1.get() #Getting the values from the queue into a variable to return its value
+  list2out = my_queue2.get()
+  return list1out,list2out
+</code></pre>
+<h3 id="mapper-reducer">Mapper-Reducer</h3>
+<p>Finally, we combine all the above functions to split the lines after 5000 words and them implement the entire Mapper Reducer operation which mimics the way Hadoop&rsquo;s handles the data.</p>
+<pre><code>def main_function(text):  
+  cleantext = data_clean(text)
+  linessplit = splitlines(cleantext,5000)
+  mapperout = multi_thread_function(mapper,linessplit[0],linessplit[1]) 
+  sortedwords = sortedlists(mapperout[0],mapperout[1])
+  slicedwords = partition(sortedwords)
+  reducerout = multi_thread_function(reducer,slicedwords[0],slicedwords[1])
+  return reducerout[0]+reducerout[1]
+
+output = main_function(text)
+import pandas as pd
+pd.DataFrame(output).to_csv(&quot;Output.csv&quot;,index=False,header = [&quot;Word&quot;,&quot;Frequency&quot;]) #Saving file as a .csv file in the current directory
+</code></pre>
+<h3 id="did-you-find-this-page-helpful-consider-sharing-it-">Did you find this page helpful? Consider sharing it 🙌</h3>
 
     </div>
 
@@ -746,14 +770,6 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
 
 
 
-
-<div class="article-tags">
-  
-  <a class="badge badge-light" href="/tags/big-data/">Big Data</a>
-  
-  <a class="badge badge-light" href="/tags/nlp/">NLP</a>
-  
-</div>
 
 
 
@@ -768,7 +784,7 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/&amp;text=400K%20Tweet%20analysis%20on%20PySpark" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://vipanchikatthula.github.io/post/mapper-reducer-implementation/&amp;text=Map%20Reduce%20101%20-%20Python%20Implementation%20%28Multi%20Threading%29" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -781,7 +797,7 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/&amp;t=400K%20Tweet%20analysis%20on%20PySpark" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://vipanchikatthula.github.io/post/mapper-reducer-implementation/&amp;t=Map%20Reduce%20101%20-%20Python%20Implementation%20%28Multi%20Threading%29" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -794,7 +810,7 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       
       
       <li>
-        <a href="mailto:?subject=400K%20Tweet%20analysis%20on%20PySpark&amp;body=https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Map%20Reduce%20101%20-%20Python%20Implementation%20%28Multi%20Threading%29&amp;body=https://vipanchikatthula.github.io/post/mapper-reducer-implementation/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -807,7 +823,7 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/&amp;title=400K%20Tweet%20analysis%20on%20PySpark" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://vipanchikatthula.github.io/post/mapper-reducer-implementation/&amp;title=Map%20Reduce%20101%20-%20Python%20Implementation%20%28Multi%20Threading%29" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -820,7 +836,7 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       
       
       <li>
-        <a href="https://web.whatsapp.com/send?text=400K%20Tweet%20analysis%20on%20PySpark%20https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="https://web.whatsapp.com/send?text=Map%20Reduce%20101%20-%20Python%20Implementation%20%28Multi%20Threading%29%20https://vipanchikatthula.github.io/post/mapper-reducer-implementation/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -833,7 +849,7 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=https://vipanchikatthula.github.io/project/pyspark-operations-on-amazons-tweets/&amp;title=400K%20Tweet%20analysis%20on%20PySpark" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://vipanchikatthula.github.io/post/mapper-reducer-implementation/&amp;title=Map%20Reduce%20101%20-%20Python%20Implementation%20%28Multi%20Threading%29" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -960,36 +976,9 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
 
   
   
-  <div class="article-widget content-widget-hr">
-    <h3>Related</h3>
-    <ul>
-      
-      <li><a href="/project/twitter-sentiment-analysis/">Sentiment Analysis on Tweets</a></li>
-      
-      <li><a href="/project/jaccard-cosine-similarity/">Jaccard Cosine Similarity</a></li>
-      
-    </ul>
-  </div>
-  
 
 
 
-    <div class="project-related-pages content-widget-hr">
-      
-      
-
-      
-      
-      
-
-      
-      
-      
-
-      
-      
-      
-    </div>
   </div>
 </article>
 
@@ -1003,6 +992,8 @@ counts_ordered = sqlcontext.sql(&ldquo;SELECT * FROM tmpcounts order by count_of
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
 
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
       
 
       

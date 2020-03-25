@@ -5,7 +5,7 @@
     <link>https://vipanchikatthula.github.io/post/</link>
       <atom:link href="https://vipanchikatthula.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Fri, 12 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Tue, 11 Feb 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://vipanchikatthula.github.io/img/postagging.png</url>
       <title>Posts</title>
@@ -13,235 +13,111 @@
     </image>
     
     <item>
-      <title>Writing technical content in Academic</title>
-      <link>https://vipanchikatthula.github.io/post/technical-post/</link>
-      <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://vipanchikatthula.github.io/post/technical-post/</guid>
-      <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
-&lt;h2 id=&#34;examples&#34;&gt;Examples&lt;/h2&gt;
-&lt;h3 id=&#34;code&#34;&gt;Code&lt;/h3&gt;
-&lt;p&gt;Academic supports a Markdown extension for highlighting code syntax. You can enable this feature by toggling the &lt;code&gt;highlight&lt;/code&gt; option in your &lt;code&gt;config/_default/params.toml&lt;/code&gt; file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```python
+      <title>Map Reduce 101 - Python Implementation (Multi Threading)</title>
+      <link>https://vipanchikatthula.github.io/post/mapper-reducer-implementation/</link>
+      <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+      <guid>https://vipanchikatthula.github.io/post/mapper-reducer-implementation/</guid>
+      <description>&lt;p&gt;I  created a &lt;code&gt;Mapper-Reducer implementation&lt;/code&gt; using basic features of Python to mimic Hadoop&amp;rsquo;s mapper-reducer functionality. I used &lt;code&gt;Multi-threading&lt;/code&gt; (explained later) to run parallel operations. I used Google Colab to run the model and you can find the required [&amp;ldquo;Pride_and_Prejudice.txt&amp;rdquo;] file 
+&lt;a href=&#34;https://github.com/VipanchiKatthula/Mapper_Reducer_Implementation&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;goal&#34;&gt;Goal&lt;/h2&gt;
+&lt;p&gt;First, let&amp;rsquo;s map the words in the provided text to 1 using the mapper as &lt;code&gt;&amp;lt;Word,1&amp;gt;&lt;/code&gt; and then use reducer to find the word count in the format &lt;code&gt;&amp;lt;Word,Count&amp;gt;&lt;/code&gt;. A reducer also sorts the words which needs to be separately added to the series of operations. I implement the multi threading in python to parallelly get the word counts from two lists of words.&lt;/p&gt;
+&lt;h3 id=&#34;input-file&#34;&gt;Input File&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;inputfile = open(&#39;/content/drive/My Drive/IDS561BigData/Assignment1/Pride_and_Prejudice.txt&#39;,&amp;quot;r&amp;quot;)
+text = inputfile.read()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;data-cleaning&#34;&gt;Data cleaning&lt;/h3&gt;
+&lt;p&gt;In order for us to use the text from the book, we have to remove the the punctuations, unnecessary  numbers as they won&amp;rsquo;t help us understand the text in most cases.&lt;/p&gt;
+&lt;p&gt;We remove the numbers, convert the text to lower case using &lt;code&gt;.lower()&lt;/code&gt; command and use Regular Expressions to replace punctuations with a space &lt;code&gt;&#39; &#39;&lt;/code&gt;. I then remove those Lines with no text in them.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def data_clean(text):
+  NoNumbers = &#39;&#39;.join([i for i in text if not i.isdigit()]) #Removing numbers
+  NoNumbers = text.lower()                                  #Making the text to lower case
+  import re
+  onlyText = re.sub(r&amp;quot;[^a-z\s]+&amp;quot;,&#39; &#39;,NoNumbers)             #Removing punctuation
+  finaltext = &amp;quot;&amp;quot;.join([s for s in onlyText.strip().splitlines(True) if s.strip()]) #Removing the null lines
+  return finaltext
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;splitting-data-into-two-parts&#34;&gt;Splitting data into two parts&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s define a reusable function which takes a list of words as input to do multi-threading on the given data set. Here &amp;ldquo;a&amp;rdquo; is the number of words after you wish to make the split. For example, &lt;code&gt;splitlines(text,200)&lt;/code&gt; will split the text into split1 and split2 as two sentences with first 1 to 199 words in split1 and rest in split2.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def splitlines(text,a):
+  linessplit = text.splitlines() #Splitting the lines into a list
+  split1 = linessplit[0:a]       #Creating the first split with the first &amp;quot;a&amp;quot; number of lines into split 1
+  split2 = linessplit[a:]        #Creating the second split with the first &amp;quot;a&amp;quot; number of lines into split 2
+  return split1,split2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;mapper&#34;&gt;Mapper&lt;/h3&gt;
+&lt;p&gt;We map all the words in &amp;ldquo;text&amp;rdquo; to 1 using the &lt;code&gt;keyval.append([j,1])&lt;/code&gt; command. So, the key here is the word and we apped a value of 1. The output format of the data is &lt;code&gt;&amp;lt;word,1&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def mapper(text,out_queue):
+  keyval = []
+  for i in text:
+    wordssplit = i.split()
+    for j in wordssplit:
+      keyval.append([j,1])      #Appending each word in the line with 1 and storing it in [&amp;quot;word&amp;quot;,1] format in a nested list
+  out_queue.put(keyval)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sorting-function&#34;&gt;Sorting Function&lt;/h3&gt;
+&lt;p&gt;As we have two lists of separate key-value pairs after the split function, now we define sortging function to handle both the lists. We  take two inputs and return only one output which which contains the sorted list of word key value pairs.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def sortedlists(list1,list2):
+  out = list1 + list2             #Appending the two input lists into a single list
+  out.sort(key= lambda x :x[0])   #Sorting the lists based on the first element of the list which is the &amp;quot;word&amp;quot;
+  return out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;partition&#34;&gt;Partition&lt;/h3&gt;
+&lt;p&gt;The below code creates two lists of sorted words in alphabetical order and then we separate the words starting with a-m and n-z. The function returns the sorted lists which will be inputs to the reducer function.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def partition(sorted_list) :
+ sort1out = []
+ sort2out = []
+ for i in sorted_list:
+    if i[0][0] &amp;lt; &#39;n&#39;:             #Partitioning the sorted word list into two separate lists 
+      sort1out.append(i)          #with first list containing words starting with a-m and n-z into second
+    else : sort2out.append(i)
+ return sort1out,sort2out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;reducer&#34;&gt;Reducer&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;def reducer(part_out1,out_queue) :
+  sum_reduced = []
+  count = 1
+  for i in range(0,len(part_out1)):
+    if i &amp;lt; len(part_out1)-1:
+      if part_out1[i] == part_out1[i+1]:
+       count = count+1                              #Counting the number of words
+      else : 
+       sum_reduced.append([part_out1[i][0],count])  #Appending the word along with count to sum_reduced list as [&amp;quot;word&amp;quot;,count]
+       count = 1 
+    else: sum_reduced.append(part_out1[i])          #Appending the last word to the output list    
+  out_queue.put(sum_reduced)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;multi---threading-function&#34;&gt;Multi - Threading function&lt;/h3&gt;
+&lt;p&gt;The user defined function below takes a function and two inputs as arguments. The function is applied on both the inputs simultaneously and the output is returned by the function.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import threading
+import queue
+def multi_thread_function(func,map1_input,map2_input):  #func is the function to be used with two threads taking two inputs map1_input and map2_input
+  my_queue1 = queue.Queue()  #Using queue to store the values of mapper output to use them in sort function
+  my_queue2 = queue.Queue()
+  t1 = threading.Thread(target=func, args=(map1_input,my_queue1)) 
+  t2 = threading.Thread(target=func, args=(map2_input,my_queue2))  
+  t1.start()                 #Starting the execution of thread1
+  t2.start()                 #Starting the execution of thread2 to run simultaneously with thread1
+  t1.join()                  #Waiting for the thread1 to be completely executed
+  t2.join()                  #Waiting for the thread2 to be completely executed
+  list1out = my_queue1.get() #Getting the values from the queue into a variable to return its value
+  list2out = my_queue2.get()
+  return list1out,list2out
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;mapper-reducer&#34;&gt;Mapper-Reducer&lt;/h3&gt;
+&lt;p&gt;Finally, we combine all the above functions to split the lines after 5000 words and them implement the entire Mapper Reducer operation which mimics the way Hadoop&amp;rsquo;s handles the data.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def main_function(text):  
+  cleantext = data_clean(text)
+  linessplit = splitlines(cleantext,5000)
+  mapperout = multi_thread_function(mapper,linessplit[0],linessplit[1]) 
+  sortedwords = sortedlists(mapperout[0],mapperout[1])
+  slicedwords = partition(sortedwords)
+  reducerout = multi_thread_function(reducer,slicedwords[0],slicedwords[1])
+  return reducerout[0]+reducerout[1]
+
+output = main_function(text)
 import pandas as pd
-data = pd.read_csv(&amp;quot;data.csv&amp;quot;)
-data.head()
-```
+pd.DataFrame(output).to_csv(&amp;quot;Output.csv&amp;quot;,index=False,header = [&amp;quot;Word&amp;quot;,&amp;quot;Frequency&amp;quot;]) #Saving file as a .csv file in the current directory
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import pandas as pd
-data = pd.read_csv(&amp;quot;data.csv&amp;quot;)
-data.head()
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;math&#34;&gt;Math&lt;/h3&gt;
-&lt;p&gt;Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the &lt;code&gt;math&lt;/code&gt; option in your &lt;code&gt;config/_default/params.toml&lt;/code&gt; file.&lt;/p&gt;
-&lt;p&gt;To render &lt;em&gt;inline&lt;/em&gt; or &lt;em&gt;block&lt;/em&gt; math, wrap your LaTeX math with &lt;code&gt;$...$&lt;/code&gt; or &lt;code&gt;$$...$$&lt;/code&gt;, respectively.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;math block&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-tex&#34;&gt;$$\gamma_{n} = \frac{ 
-\left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T 
-\left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}
-{\left \|\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right \|^2}$$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left |\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right |^2}$$&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;inline math&lt;/strong&gt; &lt;code&gt;$\nabla F(\mathbf{x}_{n})$&lt;/code&gt; renders as $\nabla F(\mathbf{x}_{n})$.&lt;/p&gt;
-&lt;p&gt;Example &lt;strong&gt;multi-line math&lt;/strong&gt; using the &lt;code&gt;\\&lt;/code&gt; math linebreak:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-tex&#34;&gt;$$f(k;p_0^*) = \begin{cases} p_0^* &amp;amp; \text{if }k=1, \\
-1-p_0^* &amp;amp; \text {if }k=0.\end{cases}$$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;$$f(k;p_0^*) = \begin{cases} p_0^* &amp;amp; \text{if }k=1, \&lt;br&gt;
-1-p_0^* &amp;amp; \text {if }k=0.\end{cases}$$&lt;/p&gt;
-&lt;h3 id=&#34;diagrams&#34;&gt;Diagrams&lt;/h3&gt;
-&lt;p&gt;Academic supports a Markdown extension for diagrams. You can enable this feature by toggling the &lt;code&gt;diagram&lt;/code&gt; option in your &lt;code&gt;config/_default/params.toml&lt;/code&gt; file or by adding &lt;code&gt;diagram: true&lt;/code&gt; to your page front matter.&lt;/p&gt;
-&lt;p&gt;An example &lt;strong&gt;flowchart&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-graph TD
-A[Hard] --&amp;gt;|Text| B(Round)
-B --&amp;gt; C{Decision}
-C --&amp;gt;|One| D[Result 1]
-C --&amp;gt;|Two| E[Result 2]
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;graph TD
-A[Hard] --&amp;gt;|Text| B(Round)
-B --&amp;gt; C{Decision}
-C --&amp;gt;|One| D[Result 1]
-C --&amp;gt;|Two| E[Result 2]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;sequence diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-sequenceDiagram
-Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
-loop Healthcheck
-    John-&amp;gt;&amp;gt;John: Fight against hypochondria
-end
-Note right of John: Rational thoughts!
-John--&amp;gt;&amp;gt;Alice: Great!
-John-&amp;gt;&amp;gt;Bob: How about you?
-Bob--&amp;gt;&amp;gt;John: Jolly good!
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;sequenceDiagram
-Alice-&amp;gt;&amp;gt;John: Hello John, how are you?
-loop Healthcheck
-    John-&amp;gt;&amp;gt;John: Fight against hypochondria
-end
-Note right of John: Rational thoughts!
-John--&amp;gt;&amp;gt;Alice: Great!
-John-&amp;gt;&amp;gt;Bob: How about you?
-Bob--&amp;gt;&amp;gt;John: Jolly good!
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;Gantt diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;gantt
-section Section
-Completed :done,    des1, 2014-01-06,2014-01-08
-Active        :active,  des2, 2014-01-07, 3d
-Parallel 1   :         des3, after des1, 1d
-Parallel 2   :         des4, after des1, 1d
-Parallel 3   :         des5, after des3, 1d
-Parallel 4   :         des6, after des4, 1d
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;class diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-classDiagram
-Class01 &amp;lt;|-- AveryLongClass : Cool
-&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; Class01
-Class09 --&amp;gt; C2 : Where am i?
-Class09 --* C3
-Class09 --|&amp;gt; Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-class Class10 {
-  &amp;lt;&amp;lt;service&amp;gt;&amp;gt;
-  int id
-  size()
-}
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;classDiagram
-Class01 &amp;lt;|-- AveryLongClass : Cool
-&amp;lt;&amp;lt;interface&amp;gt;&amp;gt; Class01
-Class09 --&amp;gt; C2 : Where am i?
-Class09 --* C3
-Class09 --|&amp;gt; Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Class01 : size()
-Class01 : int chimp
-Class01 : int gorilla
-class Class10 {
-  &amp;lt;&amp;lt;service&amp;gt;&amp;gt;
-  int id
-  size()
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;An example &lt;strong&gt;state diagram&lt;/strong&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;```mermaid
-stateDiagram
-[*] --&amp;gt; Still
-Still --&amp;gt; [*]
-Still --&amp;gt; Moving
-Moving --&amp;gt; Still
-Moving --&amp;gt; Crash
-Crash --&amp;gt; [*]
-```
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;stateDiagram
-[*] --&amp;gt; Still
-Still --&amp;gt; [*]
-Still --&amp;gt; Moving
-Moving --&amp;gt; Still
-Moving --&amp;gt; Crash
-Crash --&amp;gt; [*]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;todo-lists&#34;&gt;Todo lists&lt;/h3&gt;
-&lt;p&gt;You can even write your todo lists in Academic too:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;- [x] Write math example
-- [x] Write diagram example
-- [ ] Do something else
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write math example&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Write diagram example&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Do something else&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;tables&#34;&gt;Tables&lt;/h3&gt;
-&lt;p&gt;Represent your data in tables:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;First Header&lt;/th&gt;
-&lt;th&gt;Second Header&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;td&gt;Content Cell&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;asides&#34;&gt;Asides&lt;/h3&gt;
-&lt;p&gt;Academic supports a 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/#alerts&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;shortcode for asides&lt;/a&gt;, also referred to as &lt;em&gt;notices&lt;/em&gt;, &lt;em&gt;hints&lt;/em&gt;, or &lt;em&gt;alerts&lt;/em&gt;. By wrapping a paragraph in &lt;code&gt;{{% alert note %}} ... {{% /alert %}}&lt;/code&gt;, it will render as an aside.&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% alert note %}}
-A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-{{% /alert %}}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;icons&#34;&gt;Icons&lt;/h3&gt;
-&lt;p&gt;Academic enables you to use a wide range of 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/page-builder/#icons&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;icons from &lt;em&gt;Font Awesome&lt;/em&gt; and &lt;em&gt;Academicons&lt;/em&gt;&lt;/a&gt; in addition to 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/#emojis&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;emojis&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Here are some examples using the &lt;code&gt;icon&lt;/code&gt; shortcode to render icons:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; icon name=&amp;quot;terminal&amp;quot; pack=&amp;quot;fas&amp;quot; &amp;gt;}} Terminal  
-{{&amp;lt; icon name=&amp;quot;python&amp;quot; pack=&amp;quot;fab&amp;quot; &amp;gt;}} Python  
-{{&amp;lt; icon name=&amp;quot;r-project&amp;quot; pack=&amp;quot;fab&amp;quot; &amp;gt;}} R
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;renders as&lt;/p&gt;
-&lt;p&gt;
-  &lt;i class=&#34;fas fa-terminal  pr-1 fa-fw&#34;&gt;&lt;/i&gt; Terminal&lt;br&gt;
-
-  &lt;i class=&#34;fab fa-python  pr-1 fa-fw&#34;&gt;&lt;/i&gt; Python&lt;br&gt;
-
-  &lt;i class=&#34;fab fa-r-project  pr-1 fa-fw&#34;&gt;&lt;/i&gt; R&lt;/p&gt;
 &lt;h3 id=&#34;did-you-find-this-page-helpful-consider-sharing-it-&#34;&gt;Did you find this page helpful? Consider sharing it 🙌&lt;/h3&gt;
 </description>
     </item>
